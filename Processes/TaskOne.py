@@ -5,24 +5,19 @@ import multiprocessing
 import time
 
 
-def square_list(my_list: list, process_name: str):
+def square_list(my_list: list):
     new_list = []
+    process_name = multiprocessing.current_process().name
     for i in my_list:
         new_list.append(i * i)
-        print(f'{process_name}: {i}')
-        time.sleep(2)
+        time.sleep(1)
     print(f'Result in {process_name}: {new_list}')
 
 
 if __name__ == '__main__':
+    test_list = [1, 2, 3, 4, 5, 6]
 
-    processes = []
-    test_list = [1, 2, 3, 4, 5]
-
-    for p in range(3):
-        p = multiprocessing.Process(target=square_list, args=(test_list, f'Process - {p + 1}'))
-        processes.append(p)
-        p.start()
-
-    for p in processes:
+    with multiprocessing.Pool(processes=3) as p:
+        p.map_async(square_list, [[x] for x in test_list])
+        p.close()
         p.join()
