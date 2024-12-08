@@ -10,18 +10,18 @@
 from abc import ABC, abstractmethod
 
 
-class PaymentProcessor(ABC):
+class IPaymentProcessor(ABC):
     @abstractmethod
     def process_payment(self, amount: float) -> None:
         pass
 
 
-class CardPaymentProcessor(PaymentProcessor):
+class CardPaymentProcessor(IPaymentProcessor):
     def process_payment(self, amount: float) -> None:
         print(f'Processing card payment, amount: {amount}')
 
 
-class CryptoPaymentProcessor(PaymentProcessor):
+class CryptoPaymentProcessor(IPaymentProcessor):
     def process_payment(self, amount: float) -> None:
         print(f'Processing crypto payment, amount: {amount}')
 

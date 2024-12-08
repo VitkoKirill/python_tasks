@@ -11,7 +11,7 @@
 from abc import ABC, abstractmethod
 
 
-class Logger(ABC):
+class ILogger(ABC):
     @abstractmethod
     def log_info(self, message: str) -> None:
         pass
@@ -21,13 +21,13 @@ class Logger(ABC):
         pass
 
 
-class AdvancedLogger(Logger):
+class IAdvancedLogger(ILogger):
     @abstractmethod
     def log_warning(self, message: str) -> None:
         pass
 
 
-class FileLogger(Logger):
+class FileLogger(ILogger):
     def log_info(self, message: str) -> None:
         with open('log.txt', 'a') as f:
             f.write('Info: ' + message + '\n')
@@ -37,14 +37,14 @@ class FileLogger(Logger):
             f.write('Error: ' + message + '\n')
 
 
-class ConsoleLogger(Logger):
+class ConsoleLogger(ILogger):
     def log_info(self, message: str) -> None:
         print('Info: ' + message)
 
     def log_error(self, message: str) -> None:
         print('Error: ' + message)
 
-class AdvancedFileLogger(AdvancedLogger):
+class AdvancedFileLogger(IAdvancedLogger):
     def log_info(self, message: str) -> None:
         with open('log.txt', 'a') as f:
             f.write('AdvancedFileLogger Info: ' + message + '\n')
