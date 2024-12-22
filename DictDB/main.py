@@ -1,10 +1,15 @@
-from DictDB.human_service import HumanService
+import time
 
-human_service = HumanService()
+from DictDB.user_service import UserService
 
-key = human_service.post('Mike', 'Nike', 52, 'Programmer')
-updated_human = human_service.retrieve(key)
-updated_human.age = 45
-human_service.update(key=key, value=updated_human)
-human_service.remove(key)
-human_service.show_all()
+user_service = UserService()
+
+key = user_service.post('Mike', 'Nike', 52, 'Programmer')
+updated_user = user_service.get(key)
+print(updated_user.__dict__)
+updated_user.age = 45
+time.sleep(2)
+user_service.update(key=key, user=updated_user)
+print(updated_user.__dict__)
+user_service.remove(key)
+user_service.show_all()

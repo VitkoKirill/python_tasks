@@ -1,9 +1,15 @@
-class Human:
+import uuid
+
+
+class User:
     def __init__(self, name: str, surname: str, age: int, career: str):
         self.__name = name
         self.__surname = surname
         self.__age = age
         self.__career = career
+        self.id = uuid.uuid4()
+        self.created_at = None
+        self.updated_at = None
 
     @property
     def name(self):
